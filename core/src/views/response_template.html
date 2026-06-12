@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>{{ title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #ffffff; --fg: #1f2937; --muted: #6b7280; --border: #d1d5db;
+      --card: #f9fafb; --error-bg: #fef2f2; --error-fg: #991b1b; --accent: #111827;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #111827; --fg: #f3f4f6; --muted: #9ca3af; --border: #374151;
+        --card: #1f2937; --error-bg: #3f1d1d; --error-fg: #fecaca; --accent: #f9fafb;
+      }
+    }
+    body { font-family: Arial, sans-serif; background: var(--bg); color: var(--fg);
+             margin: 0; padding: 16px; line-height: 1.45; }
+    .container { max-width: 900px; margin: 0 auto; }
+    h1 { margin-top: 0; color: var(--accent); }
+    .meta { color: var(--muted); margin-bottom: 16px; font-size: 14px; }
+    .card { background: var(--card); border: 1px solid var(--border);
+              border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; }
+    .label { display: inline-block; font-size: 12px; font-weight: bold;
+               color: var(--muted); text-transform: uppercase;
+               letter-spacing: 0.04em; margin-bottom: 8px; }
+    .source { white-space: pre-wrap; word-break: break-word; font-size: 16px; }
+    .translation { white-space: pre-wrap; word-break: break-word;
+                    font-size: 18px; font-weight: 600; }
+    .error { background: var(--error-bg); color: var(--error-fg);
+               border: 1px solid currentColor; border-radius: 10px;
+               padding: 12px 14px; white-space: pre-wrap; }
+    code { background: rgba(127,127,127,.12); padding: 2px 5px; border-radius: 6px; }
+    .small { font-size: 13px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>{{ title }}</h1>
+    <div class="meta">
+      {{ source_language }} &rarr; {{ target_language }}
+      using <code>{{ model_label }}</code>
+    </div>
+
+    {% if error %}
+    <div class="error">{{ error }}</div>
+    {% else %}
+    <div class="card">
+      <div class="label">Source</div>
+      <div class="source">{{ source_text }}</div>
+    </div>
+    <div class="card">
+      <div class="label">Translation</div>
+      <div class="translation">{{ translation }}</div>
+    </div>
+    {% endif %}
+
+    <div class="small">
+      Query format expected by Lute: <code>?payload=SELECTED_TEXT</code>
+    </div>
+  </div>
+</body>
+</html>
+

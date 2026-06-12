@@ -1,0 +1,5 @@
+**/docker_data
+**/.env*
+!.env.example
+**/__pycache__
+**/.pytest_cache

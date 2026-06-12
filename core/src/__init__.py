@@ -1,0 +1,2 @@
+"""Local translation FastAPI application."""
+

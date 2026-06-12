@@ -1,0 +1,27 @@
+services:
+  lute:
+    image: jzohrab/lute3:latest
+    ports:
+      - 5001:5001
+    volumes:
+      - ./docker_data/lute_data:/lute_data
+      - ./docker_data/lute_backups:/lute_backup
+    restart: unless-stopped
+
+  lute-ai-translation-panel:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        MT_MODEL: ${MT_MODEL}
+        MODEL_CACHE_DIR: ${MODEL_CACHE_DIR}
+    container_name: lute-ai-translation-panel
+    env_file: .env
+    volumes:
+      - model_cache:/model_cache
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+volumes:
+  model_cache:
